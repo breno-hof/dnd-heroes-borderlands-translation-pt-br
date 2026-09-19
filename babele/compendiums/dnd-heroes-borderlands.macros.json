@@ -1,0 +1,24 @@
+{
+	"label": "Macros",
+	"folders": {
+		"Caves of Chaos": "Caves of Chaos"
+	},
+	"entries": {
+		"Cave A: Toggle Pit Tile": {
+			"name": "Cave A: Toggle Pit Tile",
+			"command": "const tile = await fromUuid(\"Scene.hotbCaveAKoboldL.Tile.b8OBHKqCJgrw3L2R\");\n\nawait tile.update({hidden: !tile.hidden});"
+		},
+		"Cave H: Toggle Rolling Log": {
+			"name": "Cave H: Toggle Rolling Log",
+			"command": "const token = await fromUuid(\"Scene.hotbCaveHBugbear.Token.Uq3jfs6G01MFWeiK\");\nif ( token.y === 3640 ) await token.move({y: 5460}, {constrainOptions: {ignoreWalls: true, ignoreCost: true}, animation: {movementSpeed: 4}});\nelse await token.move({y: 3640, action: \"displace\"}, {constrainOptions: {ignoreWalls: true, ignoreCost: true}});"
+		},
+		"Cave H: Toggle Secret Door": {
+			"name": "Cave H: Toggle Secret Door",
+			"command": "const door = await fromUuid(\"Scene.hotbCaveHBugbear.Wall.w72dIrBY1PFwusW1\");\nconst tile = await fromUuid(\"Scene.hotbCaveHBugbear.Tile.AwhXnmg7XK2JZdIG\");\n\nif ( tile.hidden ) {\n  await tile.update({hidden: false});\n  await door.update({ds: 0})\n} else {\n  await tile.update({hidden: true});\n  await door.update({ds: 1})\n}"
+		},
+		"Cave K: Ring Chaos Bell": {
+			"name": "Cave K: Ring Chaos Bell",
+			"command": "const uuids = [\"Scene.hotbCaveKShrineO.Token.QRprs1PG8lkhCjYO\", \"Scene.hotbCaveKShrineO.Token.VF727bTdYv7EekGj\", \"Scene.hotbCaveKShrineO.Token.Rtj52mdT9ZbNCqd7\", \"Scene.hotbCaveKShrineO.Token.hlEyqyEEdKzUuL8W\"];\n\nconst sources = [\"modules/dnd-monster-manual/assets/tokens/skeleton-01.webp\", \"modules/dnd-monster-manual/assets/tokens/skeleton-02.webp\"];\n\nfor (const uuid of uuids) {\n    const token = await fromUuid(uuid);\n    if ( token.texture.src.includes(\"skeleton\") ) {\n        await token.update({ texture: { src: \"modules/dnd-heroes-borderlands/assets/scenes/tiles/pile-of-bones.webp\" }, \"ring.enabled\": false, disposition: -2 }, { animation: { transition: \"swirl\", duration: 2000 } });\n    } else  {\n        await token.update({ texture: { src: sources[Math.round(Math.random())] }, \"ring.enabled\": true, disposition: -1 }, { animation: { transition: \"swirl\", duration: 2000 } });\n    }\n\n}"
+		}
+	}
+}
