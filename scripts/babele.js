@@ -1,15 +1,21 @@
+console.log(
+  "HEROES BORDERLANDS PT-BR | babele.js carregado"
+);
+
 Hooks.once("babele.init", (babele) => {
   console.log(
-    "D&D - Heroes of the Borderlands PT-BR | Registrando traduções..."
+    "HEROES BORDERLANDS PT-BR | babele.init disparado",
+    babele
   );
 
-  babele.register({
+  const result = babele.register({
     module: "dnd-heroes-borderlands-translation-pt-br",
     lang: "pt-BR",
     dir: "compendium"
   });
 
   console.log(
-    "D&D - Heroes of the Borderlands PT-BR | Traduções registradas."
+    "HEROES BORDERLANDS PT-BR | register() retornou:",
+    result
   );
 });
