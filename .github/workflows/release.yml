@@ -1,0 +1,72 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Calculate version
+        id: version
+        shell: bash
+        run: |
+          latest=$(git tag --list 'v*' --sort=-version:refname | head -n 1)
+
+          if [ -z "$latest" ]; then
+            latest="v0.0.0"
+          fi
+
+          current="${latest#v}"
+
+          IFS='.' read -r major minor patch <<< "$current"
+
+          patch=$((patch + 1))
+
+          next="${major}.${minor}.${patch}"
+
+          echo "version=$next" >> "$GITHUB_OUTPUT"
+          echo "tag=v$next" >> "$GITHUB_OUTPUT"
+
+      - name: Create version tag
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          git tag "$TAG"
+          git push origin "$TAG"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: npm run build
+
+      - name: Publish Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          gh release create "$TAG" \
+            "dist/module.json" \
+            "dist/dnd-heroes-borderlands-translation-pt-br.zip" \
+            --title "$TAG" \
+            --generate-notes

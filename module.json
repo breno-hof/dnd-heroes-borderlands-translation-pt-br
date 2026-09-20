@@ -1,0 +1,45 @@
+{
+  "id": "dnd-heroes-borderlands-translation-pt-br",
+  "title": "D&D - Heroes of the Borderlands (PT-BR)",
+  "description": "Tradução comunitária para português brasileiro do módulo D&D - Heroes of the Borderlands.",
+  "version": "0.0.0",
+  "authors": [
+    {
+      "name": "Breno",
+      "url": "https://github.com/breno-hof"
+    }
+  ],
+  "url": "https://github.com/breno-hof/dnd-heroes-borderlands-translation-pt-br",
+  "bugs": "https://github.com/breno-hof/dnd-heroes-borderlands-translation-pt-br/issues",
+  "changelog": "https://github.com/breno-hof/dnd-heroes-borderlands-translation-pt-br/releases",
+  "readme": "https://github.com/breno-hof/dnd-heroes-borderlands-translation-pt-br/blob/main/README.md",
+  "license": "LICENSE",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
+  "relationships": {
+    "requires": [
+      {
+        "id": "babele",
+        "type": "module"
+      },
+      {
+        "id": "dnd-heroes-borderlands",
+        "type": "module"
+      }
+    ]
+  },
+  "esmodules": [
+    "scripts/babele.js"
+  ],
+  "languages": [
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt-BR.json"
+    }
+  ],
+  "manifest": "https://github.com/breno-hof/dnd-heroes-borderlands-translation-pt-br/releases/latest/download/module.json",
+  "download": "https://github.com/breno-hof/dnd-heroes-borderlands-translation-pt-br/releases/latest/download/dnd-heroes-borderlands-translation-pt-br.zip"
+}
