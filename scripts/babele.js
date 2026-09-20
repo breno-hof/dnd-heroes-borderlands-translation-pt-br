@@ -1,21 +1,33 @@
-console.log(
-  "HEROES BORDERLANDS PT-BR | babele.js carregado"
-);
-
-Hooks.once("babele.init", (babele) => {
+Hooks.once("init", () => {
   console.log(
-    "HEROES BORDERLANDS PT-BR | babele.init disparado",
-    babele
+    "=============================================="
+  );
+  console.log(
+    "HEROES BORDERLANDS PT-BR | SCRIPT CARREGADO"
+  );
+  console.log(
+    "=============================================="
   );
 
-  const result = babele.register({
+  console.log(
+    "HEROES BORDERLANDS PT-BR | game.babele:",
+    game.babele
+  );
+
+  if (!game.babele) {
+    console.error(
+      "HEROES BORDERLANDS PT-BR | game.babele NÃO está disponível."
+    );
+    return;
+  }
+
+  game.babele.register({
     module: "dnd-heroes-borderlands-translation-pt-br",
     lang: "pt-BR",
     dir: "compendium"
   });
 
   console.log(
-    "HEROES BORDERLANDS PT-BR | register() retornou:",
-    result
+    "HEROES BORDERLANDS PT-BR | TRADUÇÕES REGISTRADAS"
   );
 });
